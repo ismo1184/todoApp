@@ -1,0 +1,17 @@
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 300px;
+  border: solid red;
+  margin-top: 20px;
+}
+
+.todoInput {
+  width: 300px;
+}
