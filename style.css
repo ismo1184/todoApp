@@ -12,6 +12,10 @@ body {
   margin-top: 20px;
 }
 
-.todoInput {
+#newTodo {
   width: 300px;
 }
+
+/* li {
+  display: inline-block;
+} */
