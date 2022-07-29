@@ -10,35 +10,41 @@ newTodo.addEventListener("keydown", e => {
 });
 
 function addTodo() {
-  todos.push({
+  let todo = {
     text: newTodo.value.trim(),
     checked: false,
     ID: Date.now(),
-  });
+  };
+  todos.push(todo);
   const todoItem = document.createElement("li");
   todoItem.textContent = newTodo.value;
+  //set data-key attribute of li to ID
+  todoItem.setAttribute("data-key", `${todo.ID}`);
+  todoItem.classList.add("todoItem");
   todoContainer.append(todoItem);
-  const deleteBTN = document.createElement("span");
-  todoItem.append(deleteBTN);
+  const todoIcon = document.createElement("span");
+  todoIcon.classList.add("todoIcon");
+  todoItem.prepend(todoIcon);
+  //add a delete btn/svg
   const deleteSVG = document.createElement("img");
   deleteSVG.src = "images/icon-cross.svg";
   deleteSVG.classList.add("delete");
-
-  deleteBTN.append(deleteSVG);
+  todoItem.append(deleteSVG);
   newTodo.value = "";
   newTodo.focus();
 }
 
-/*function deleteTodo(ID) {
+function deleteTodo(ID) {
   const todoID = todos.map(todo => todo.ID);
-  const todoIndex = todoID.indexOf(ID);
+  const todoIndex = todoID.indexOf(Number(ID));
   todos.splice(`${todoIndex}`, 1);
-}*/
+}
 
-//adding event listener to ul, can't add to li because dynamic element
-//attach eventlistener only to img.
 todoContainer.addEventListener("click", e => {
   if (e.target.classList.contains("delete")) {
-    console.log("clicked img");
+    const ID = e.target.parentElement.dataset.key;
+    deleteTodo(ID);
+    const todoItem = document.querySelector(`[data-key= "${ID}"]`);
+    todoItem.remove();
   }
 });
