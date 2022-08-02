@@ -22,8 +22,8 @@ body {
 }
 
 h1.title {
-  font-weight: 400;
-  font-size: 30px;
+  font-weight: 700;
+  font-size: 2rem;
   letter-spacing: 5px;
   display: inline-block;
   color: white;
@@ -51,7 +51,7 @@ h1.title {
 
 .container {
   width: 500px;
-  height: 330px;
+  height: 250px;
   margin-top: 20px;
   background-color: hsl(235, 24%, 19%);
 }
@@ -64,6 +64,7 @@ h1.title {
 }
 
 .todoItem {
+  display: flex;
   color: hsl(234, 39%, 85%);
   letter-spacing: 2px;
   font-size: 0.9rem;
@@ -73,15 +74,64 @@ h1.title {
 }
 
 .todoIcon {
-  display: inline-block;
   width: 15px;
-  height: 13px;
+  height: 15px;
   border-radius: 50%;
   border: 1px solid hsl(240, 13%, 35%);
   margin-left: 15px;
   margin-right: 15px;
 }
 
+.todoText {
+  flex-grow: 1;
+}
+
 .delete {
-  margin-left: 100px;
+  /* display: none; */
+  opacity: 0%;
+  width: 15px;
+  padding-right: 10px;
+  transition: opacity 0.5s;
+}
+
+.todoItem:hover .delete {
+  opacity: 100%;
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  height: 32px;
+  margin-top: 10px;
+  background-color: hsl(235, 24%, 19%);
+  color: hsl(234, 11%, 52%);
+  font-size: 0.7rem;
+}
+
+.todoSort {
+  display: flex;
+  flex-grow: 2;
+  justify-content: space-evenly;
+  width: 50px;
+}
+
+.todoRemain {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.todoClear {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.sortItem {
+  transition: color 0.5s;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.sortItem:hover {
+  color: hsl(236, 33%, 92%);
 }
