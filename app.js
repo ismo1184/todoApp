@@ -17,7 +17,10 @@ function addTodo() {
   };
   todos.push(todo);
   const todoItem = document.createElement("li");
-  todoItem.textContent = newTodo.value;
+  const todoSpan = document.createElement("span");
+  todoSpan.textContent = newTodo.value;
+  todoSpan.classList.add("todoText");
+  todoItem.append(todoSpan);
   //set data-key attribute of li to ID
   todoItem.setAttribute("data-key", `${todo.ID}`);
   todoItem.classList.add("todoItem");
