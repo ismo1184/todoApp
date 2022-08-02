@@ -51,3 +51,18 @@ todoContainer.addEventListener("click", e => {
     todoItem.remove();
   }
 });
+
+function checkTodo(ID) {
+  const todoID = todos.map(todo => todo.ID);
+  const todoIndex = todoID.indexOf(Number(ID));
+  todos[todoIndex].checked = true;
+}
+
+todoContainer.addEventListener("click", e => {
+  if (e.target.classList.contains("todoIcon")) {
+    const ID = e.target.parentElement.dataset.key;
+    checkTodo(ID);
+    const todoItem = document.querySelector(`[data-key= "${ID}"]`);
+    todoItem.style.color = "red"; //Testing
+  }
+});

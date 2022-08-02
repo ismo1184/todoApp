@@ -54,6 +54,8 @@ h1.title {
   height: 250px;
   margin-top: 20px;
   background-color: hsl(235, 24%, 19%);
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 #todoContainer {
