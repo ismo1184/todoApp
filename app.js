@@ -55,7 +55,11 @@ todoContainer.addEventListener("click", e => {
 function checkTodo(ID) {
   const todoID = todos.map(todo => todo.ID);
   const todoIndex = todoID.indexOf(Number(ID));
-  todos[todoIndex].checked = true;
+  if (todos[todoIndex].checked === true) {
+    todos[todoIndex].checked = false;
+  } else {
+    todos[todoIndex].checked = true;
+  }
 }
 
 todoContainer.addEventListener("click", e => {
@@ -63,6 +67,9 @@ todoContainer.addEventListener("click", e => {
     const ID = e.target.parentElement.dataset.key;
     checkTodo(ID);
     const todoItem = document.querySelector(`[data-key= "${ID}"]`);
-    todoItem.style.color = "red"; //Testing
+    todoItem.classList.toggle("checkedTodo");
+    //Select first child element (span) of todoItem
+    const checkedIcon = todoItem.querySelector("span");
+    checkedIcon.classList.toggle("checkedIcon");
   }
 });
