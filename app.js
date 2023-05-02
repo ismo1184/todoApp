@@ -3,41 +3,56 @@ const todos = [];
 const newTodo = document.querySelector("#newTodo");
 const todoContainer = document.querySelector("#todoContainer");
 
-newTodo.addEventListener("keydown", e => {
-  if (e.keyCode === 13 && newTodo.value !== "") {
-    addTodo();
+newTodo.addEventListener("input", event => {
+  const maxLength = 40;
+  if (newTodo.value.length > maxLength) {
+    newTodo.value = newTodo.value.slice(0, maxLength);
   }
 });
 
-function addTodo() {
-  let todo = {
-    text: newTodo.value.trim(),
+todoForm.addEventListener("submit", event => {
+  event.preventDefault();
+  const newTodoValue = newTodo.value.trim();
+  if (newTodoValue) {
+    const todo = createTodoObject(newTodoValue);
+    addTodoItem(todo);
+  }
+});
+
+function createTodoObject(text) {
+  return {
+    text: text,
     checked: false,
     ID: Date.now(),
   };
+}
+
+function addTodoItem(todo) {
   todos.push(todo);
+  renderTodoItem(todo);
+  newTodo.value = "";
+  newTodo.focus();
+}
+
+function renderTodoItem(todo) {
   const todoItem = document.createElement("li");
   const todoSpan = document.createElement("span");
-  todoSpan.textContent = newTodo.value;
+  todoSpan.textContent = todo.text;
   todoSpan.classList.add("todoText");
   todoItem.append(todoSpan);
-  //set data-key attribute of li to ID
   todoItem.setAttribute("data-key", `${todo.ID}`);
   todoItem.classList.add("todoItem");
   todoContainer.append(todoItem);
   const todoIcon = document.createElement("span");
   todoIcon.classList.add("todoIcon");
   todoItem.prepend(todoIcon);
-  //add a delete btn/svg
   const deleteSVG = document.createElement("img");
   deleteSVG.src = "images/icon-cross.svg";
   deleteSVG.classList.add("delete");
   todoItem.append(deleteSVG);
-  newTodo.value = "";
-  newTodo.focus();
 }
 
-function deleteTodo(ID) {
+function deleteTodoItem(ID) {
   const todoID = todos.map(todo => todo.ID);
   const todoIndex = todoID.indexOf(Number(ID));
   todos.splice(`${todoIndex}`, 1);
@@ -46,13 +61,13 @@ function deleteTodo(ID) {
 todoContainer.addEventListener("click", e => {
   if (e.target.classList.contains("delete")) {
     const ID = e.target.parentElement.dataset.key;
-    deleteTodo(ID);
+    deleteTodoItem(ID);
     const todoItem = document.querySelector(`[data-key= "${ID}"]`);
     todoItem.remove();
   }
 });
 
-function checkTodo(ID) {
+function checkTodoItem(ID) {
   const todoID = todos.map(todo => todo.ID);
   const todoIndex = todoID.indexOf(Number(ID));
   if (todos[todoIndex].checked === true) {
@@ -65,11 +80,20 @@ function checkTodo(ID) {
 todoContainer.addEventListener("click", e => {
   if (e.target.classList.contains("todoIcon")) {
     const ID = e.target.parentElement.dataset.key;
-    checkTodo(ID);
+    checkTodoItem(ID);
     const todoItem = document.querySelector(`[data-key= "${ID}"]`);
     todoItem.classList.toggle("checkedTodo");
-    //Select first child element (span) of todoItem
     const checkedIcon = todoItem.querySelector("span");
     checkedIcon.classList.toggle("checkedIcon");
   }
+});
+
+const completedTodos = document.querySelector(".completedTodos");
+
+completedTodos.addEventListener("click", () => {
+  // Filter the todos array to only include the completed todos
+  const completed = todos.filter(todo => todo.checked);
+
+  // Render the completed todos in the container
+  renderTodos(completed);
 });
