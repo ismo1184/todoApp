@@ -30,8 +30,26 @@ h1.title {
   margin-right: 375px;
 }
 
-.sun {
-  width: 20px;
+.input-container {
+  position: relative;
+  display: inline-block;
+}
+
+#addTodoButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#addTodoButton i {
+  font-size: 16px;
+  color: #ccc;
 }
 
 #newTodo {
@@ -136,7 +154,7 @@ h1.title {
   flex-grow: 1;
 }
 
-.todoClear {
+.todoClearCompleted {
   text-align: center;
   flex-grow: 1;
 }
@@ -149,4 +167,18 @@ h1.title {
 
 .sortItem:hover {
   color: hsl(236, 33%, 92%);
+}
+
+/* Hide the scrollbar */
+/* For WebKit-based browsers */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background-color: transparent;
+}
+
+/* Hide the scrollbar */
+/* For Firefox and Edge */
+body {
+  scrollbar-width: none;
 }
